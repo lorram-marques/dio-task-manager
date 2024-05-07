@@ -7,7 +7,7 @@ import com.lorram.taskmanager.entities.Task;
 import com.lorram.taskmanager.services.TaskService;
 
 @Service
-public class TaskServiceImpl implements TaskService {
+public class UserServiceImpl implements TaskService {
 
 	@Override
 	public Page<Task> findAll() {
