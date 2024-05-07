@@ -1,18 +1,19 @@
 package com.lorram.taskmanager.services;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import com.lorram.taskmanager.entities.Task;
+import com.lorram.taskmanager.dto.TaskDTO;
 
 public interface TaskService {
 
-	Page<Task> findAll();
+	Page<TaskDTO> findAll(Pageable pageable);
 
-	Task findById(Long id);
+	TaskDTO findById(Long id);
 
-	void insert(Task task);
+	TaskDTO insert(TaskDTO task);
 
-	void update(Long id, Task task);
+	TaskDTO update(TaskDTO task, Long id);
 
 	void delete(Long id);
 }

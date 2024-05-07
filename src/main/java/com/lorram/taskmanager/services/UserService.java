@@ -1,18 +1,19 @@
 package com.lorram.taskmanager.services;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import com.lorram.taskmanager.entities.User;
+import com.lorram.taskmanager.dto.UserDTO;
 
 public interface UserService {
 
-	Page<User> findAll();
+	Page<UserDTO> findAll(Pageable pageable);
 
-	User findById(Long id);
+	UserDTO findById(Long id);
 
-	void insert(User user);
+	UserDTO insert(UserDTO user);
 
-	void update(Long id, User user);
+	UserDTO update(UserDTO user, Long id);
 
 	void delete(Long id);
 }

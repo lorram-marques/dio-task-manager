@@ -1,36 +1,37 @@
 package com.lorram.taskmanager.services.impl;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.lorram.taskmanager.entities.Task;
+import com.lorram.taskmanager.dto.TaskDTO;
 import com.lorram.taskmanager.services.TaskService;
 
 @Service
 public class TaskServiceImpl implements TaskService {
 
 	@Override
-	public Page<Task> findAll() {
+	public Page<TaskDTO> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Task findById(Long id) {
+	public TaskDTO findById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void insert(Task task) {
+	public TaskDTO insert(TaskDTO task) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void update(Long id, Task task) {
+	public TaskDTO update(TaskDTO task, Long id) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override

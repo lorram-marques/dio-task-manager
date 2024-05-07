@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.lorram.taskmanager.entities.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<Long, User> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }
