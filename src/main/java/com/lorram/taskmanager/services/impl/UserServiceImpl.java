@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 		return new UserDTO(user);
 	}
 	
-	public UserDTO update(UserDTO dto, Long id) {
+	public UserDTO update(Long id, UserDTO dto) {
 		User entity = repository.getReferenceById(id);
 		fromDto(dto, entity);
 		entity = repository.save(entity);
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 			repository.deleteById(id);
 			} 
 		catch (EmptyResultDataAccessException e) {
-			throw new RuntimeException();
+			throw new RuntimeException(); //TODO DatabaseException
 		}
 	}
 	

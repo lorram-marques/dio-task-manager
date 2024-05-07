@@ -35,7 +35,7 @@ public class TaskServiceImpl implements TaskService {
 		return new TaskDTO(task);
 	}
 	
-	public TaskDTO update(TaskDTO dto, Long id) {
+	public TaskDTO update(Long id, TaskDTO dto) {
 		Task entity = repository.getReferenceById(id);
 		fromDto(dto, entity);
 		entity = repository.save(entity);
@@ -58,7 +58,7 @@ public class TaskServiceImpl implements TaskService {
 			repository.deleteById(id);
 			} 
 		catch (EmptyResultDataAccessException e) {
-			throw new RuntimeException();
+			throw new RuntimeException(); //TODO DatabaseException
 		}
 	}
 	
