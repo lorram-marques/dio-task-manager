@@ -6,6 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,8 +21,11 @@ public class Task {
 	private String title;
 	private String description;
 	
-	// @OneToMany
-	// TODO private User owner;
+	@ManyToOne
+	@JoinTable(name = "tb_task_user",
+		joinColumns = @JoinColumn(name = "task_id"),
+		inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private User owner;
 	
 	public Task() {
 	}
