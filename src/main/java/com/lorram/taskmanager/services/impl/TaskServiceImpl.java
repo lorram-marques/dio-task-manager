@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,6 +14,8 @@ import com.lorram.taskmanager.entities.User;
 import com.lorram.taskmanager.repositories.TaskRepository;
 import com.lorram.taskmanager.repositories.UserRepository;
 import com.lorram.taskmanager.services.TaskService;
+import com.lorram.taskmanager.services.exceptions.DatabaseException;
+import com.lorram.taskmanager.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -32,7 +33,7 @@ public class TaskServiceImpl implements TaskService {
 	
 	public TaskDTO findById(Long id) {
 		Optional<Task> obj = repository.findById(id);
-		Task task = obj.orElseThrow(() -> new RuntimeException()); //TODO ResourceNotFoundException
+		Task task = obj.orElseThrow(() -> new ResourceNotFoundException(id));
 		return new TaskDTO(task);
 	}
 	
@@ -49,7 +50,7 @@ public class TaskServiceImpl implements TaskService {
 		fromDto(dto, entity);
 		entity = repository.save(entity);
 		} catch(DataIntegrityViolationException e) {
-			throw new RuntimeException("Integrity violation"); //TODO DatabaseException
+			throw new DatabaseException("Integrity violation");
 		}
 		return new TaskDTO(entity);
 	}
@@ -57,10 +58,9 @@ public class TaskServiceImpl implements TaskService {
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
-			} 
-		catch (EmptyResultDataAccessException e) {
-			throw new RuntimeException(); //TODO DatabaseException
-		}
+			} catch (DataIntegrityViolationException e) {
+				throw new DatabaseException("Integrity violation");
+			}
 	}
 	
 	private void fromDto(TaskDTO taskDto, Task entity) {
