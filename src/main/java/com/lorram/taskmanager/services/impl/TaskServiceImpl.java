@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.lorram.taskmanager.dto.TaskDTO;
 import com.lorram.taskmanager.entities.Task;
+import com.lorram.taskmanager.entities.User;
 import com.lorram.taskmanager.repositories.TaskRepository;
 import com.lorram.taskmanager.repositories.UserRepository;
 import com.lorram.taskmanager.services.TaskService;
@@ -21,8 +22,8 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private TaskRepository repository;
 	
-	@Autowired UserRepository userRepository;
-	
+	@Autowired
+	private UserRepository userRepository;
 	
 	public Page<TaskDTO> findAll(Pageable pageable) {
 		Page<Task> list = repository.findAll(pageable);
@@ -65,6 +66,12 @@ public class TaskServiceImpl implements TaskService {
 	private void fromDto(TaskDTO taskDto, Task entity) {
 		entity.setTitle(taskDto.getTitle());
 		entity.setDescription(taskDto.getDescription());
-		entity.setOwner(userRepository.getReferenceById(taskDto.getOwnerId()));
+		User owner = entity.getOwner();
+		if (owner == null) {
+			entity.setOwner(userRepository.getReferenceById(taskDto.getOwnerId()));
+		} else {  
+			entity.setOwner(entity.getOwner());
+		}
+		entity.setCompleted(taskDto.isCompleted());
 	}
 }

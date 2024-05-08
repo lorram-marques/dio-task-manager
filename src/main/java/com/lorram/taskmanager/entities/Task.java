@@ -22,6 +22,7 @@ public class Task implements Serializable {
 	private Long id;
 	private String title;
 	private String description;
+	private boolean completed;
 	
 	@ManyToOne
 	@JoinTable(name = "tb_task_user",
@@ -73,6 +74,14 @@ public class Task implements Serializable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+
+	public boolean isCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
 	}
 
 	@Override
